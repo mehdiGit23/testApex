@@ -1,5 +1,5 @@
 /**
- * updated by Mohamed Mehdi ABDALLAOUI on 06/05/2021
+ * updated by Mohamed Mehdi on 20/06/2021
  *
  */
 global class SubscriptionComplianceCheck implements Database.Batchable<sObject> {
@@ -13,7 +13,7 @@ global class SubscriptionComplianceCheck implements Database.Batchable<sObject> 
                  'ContractEmail__c, CompanySegment__c, CompanySiret__c,'+ 
                  'SBQQ__Subscription__r.Souscription_Conforme__c, SBQQ__Subscription__r.Status__c'+ 
                   'FROM SBQQ__Subscription__c WHERE Status__c = '+Constants.ELEMENTS_MANQUANTS+ 
-                 ' AND Souscription_Conforme__c = \'false\'');
+                 ' AND Souscription_Conforme__c = false');
     }
     
     global void execute(Database.BatchableContext cnx, List<SBQQ__Subscription__c> scope) {
@@ -26,11 +26,13 @@ global class SubscriptionComplianceCheck implements Database.Batchable<sObject> 
                if (sub.ComplianceProcess__c == Constants.IMMO_NEUF) {
                     //Modification de la conformité
                     sub.Souscription_Conforme__c = true;
-                    listSubscriptionToUpdate_setConformiteImmoNeuf.add(sub);
+                    
+                    listSubscriptionToUpdate.add(sub);
                 }
             }
             Logs.trace('SubscriptionComplianceCheck','updating subscription', 'Begin of updating subscription');
             //Modification des souscriptions
+
             Utils_Subscription.updateListeSubscription(listSubscriptionToUpdate);
        
         } catch(Exception e) {

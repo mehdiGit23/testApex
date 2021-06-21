@@ -6,7 +6,6 @@ private class SubscriptionComplianceCheckTest {
         DataFactory.initBase();
     } 
     
-    
     @isTest
     private static void testConformite() {
         

@@ -1,6 +1,5 @@
 public with sharing class Logs {
-
-   
+ 
 //Save information log
 public static void info(String className, String task, String description){
     Logs__c log = new Logs__c();

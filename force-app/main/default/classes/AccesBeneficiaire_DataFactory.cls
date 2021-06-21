@@ -1,7 +1,6 @@
 @isTest
 public with sharing class AccesBeneficiaire_DataFactory {
-	
-    public static Acces_beneficiaire__c createBeneficiaire(String name,
+	public static Acces_beneficiaire__c createBeneficiaire(String name,
                                                           ID compteId,
                                                           String email,
                                                           String statut) {

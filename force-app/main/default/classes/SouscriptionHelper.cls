@@ -8,15 +8,15 @@ public with sharing class SouscriptionHelper {
     public static void updateDateContracts( List<SBQQ__Subscription__c> listSub){
         Set<Id> associatedConId = new Set<Id>() ;
         for (SBQQ__Subscription__c sub : listSub) {
-            associatedConId.add(sub.SBQQ__Contract__c) ;
+            associatedConId.add(sub.SBQQ__Contract__c) ;// check null
         }
         
-        listSubs = [SELECT SBQQ__Contract__c,TechAmendmentReason__c, SBQQ__TerminatedDate__c,SBQQ__EndDate__c FROM SBQQ__Subscription__c WHERE SBQQ__Contract__c =:associatedConId];
+        listSubs = [SELECT SBQQ__Contract__c,TechAmendmentReason__c, SBQQ__TerminatedDate__c,SBQQ__EndDate__c FROM SBQQ__Subscription__c WHERE SBQQ__Contract__c IN :associatedConId];
         try {
             for (SBQQ__Subscription__c sub : listSubs) {
                 isTerminate = true;
-                terminatedDate = sub.SBQQ__Contract__r.EndDate;
-                endDate = sub.SBQQ__Contract__r.EndDate;
+                terminatedDate = sub.SBQQ__Contract__r.EndDate; //
+                endDate = sub.SBQQ__Contract__r.EndDate;//
 
                 SBQQ__Contract__c contrat = calculDate(sub , isTerminate, terminatedDate , endDate);
                 
